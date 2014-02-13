@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+
+	<context:component-scan base-package="com.xebia.test" />
+
+	<!-- DataSource Configuration -->
+	<beans:bean id="myDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
+		destroy-method="close">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/webdb" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="root" />
+	</beans:bean>
+
+	<beans:bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="myDataSource" />
+		<beans:property name="packagesToScan">
+			<beans:value>com.xebia.test.common.hibernate</beans:value>
+		</beans:property>
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<beans:property name="sessionFactory" ref="mySessionFactory" />
+	</beans:bean>
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<annotation-driven>
+		<argument-resolvers>
+			<beans:bean
+				class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+			<beans:bean
+				class="org.springframework.mobile.device.site.SitePreferenceWebArgumentResolver" />
+		</argument-resolvers>
+	</annotation-driven>
+
+	<interceptors>
+		<beans:bean
+			class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+		<beans:bean
+			class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" />
+
+	</interceptors>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/tiles-conf.xml</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="tilesProperties">
+			<beans:props>
+				<beans:prop key="org.apache.tiles.evaluator.AttributeEvaluator">
+					org.apache.tiles.evaluator.el.ELAttributeEvaluator
+				</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	<beans:bean
+		class="com.xebia.test.mobile.support.TilesSupportLiteDeviceDelegatingViewResolver">
+		<beans:constructor-arg>
+			<beans:bean
+				class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
+			</beans:bean>
+		</beans:constructor-arg>
+		<beans:property value="true" name="enableFallback" />
+		<beans:property value="deviceType" name="deviceType" />
+		<beans:property value="desktop" name="mobilePrefix" />
+		<beans:property value="desktop" name="tabletPrefix" />
+		<beans:property value="desktop" name="normalPrefix" />
+	</beans:bean>
+
+	<beans:bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basenames">
+			<beans:list>
+				<beans:value>resources/messages/messages</beans:value>
+				<beans:value>resources/messages/common</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<beans:property name="paramName" value="lang" />
+	</beans:bean>
+
+	<beans:bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<beans:property name="defaultLocale" value="en" />
+	</beans:bean>
+
+	<beans:bean id="handlerMapping"
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<beans:property name="interceptors">
+			<beans:ref bean="localeChangeInterceptor" />
+		</beans:property>
+	</beans:bean>
+
+
+</beans:beans>

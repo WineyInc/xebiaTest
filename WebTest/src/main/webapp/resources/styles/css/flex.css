@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+.hbox{
+	display: -webkit-box !important;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: stretch;
+    display: -moz-box !important;
+    -moz-box-orient: horizontal;
+    -moz-box-align: stretch;
+    display: box !important;
+    box-orient: horizontal;
+    box-align: stretch;
+}

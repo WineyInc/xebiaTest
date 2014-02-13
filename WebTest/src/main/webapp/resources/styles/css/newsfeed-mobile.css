@@ -1,0 +1,94 @@
+@CHARSET "ISO-8859-1";
+.nf-container
+{
+	padding: 10px 10px;
+	margin: 0px 0px;
+	clear:both;
+	border-radius: 0px;
+	float: left;
+	overflow: hidden;
+	background-color:#6bb6a1;
+	vertical-align: top;
+}
+.nf-container:before,
+.nf-container:after {
+  display: table;
+  content: " ";
+}
+.nf-post{
+	border-radius:2px;
+	background-color: rgb(255,255,255);
+	border: 2px outset solid rgb(255,255,255);
+	padding:5px 5px;
+	font-size: 14px;
+	line-height: 1.5;
+}
+.nf-post-header img{
+	float:left;
+}
+.nf-post-header .nf-post-heading{
+	font-size: 16px;
+	float:none;
+	padding:0px 5px;
+	text-align:justify;
+	text-decoration:none;
+	font-weight: bold;	
+}
+.nf-post-com-user-bid{
+	padding: 0px 10px;
+}
+.nf-post-com-user-ach ul li{
+	list-style: none;
+	text-align: left;
+}
+.nf-post-com-user-ach{
+	padding:10px 10px;
+	margin:5px 5px;
+	font-weight: normal;
+	
+}
+.nf-post-com-user a{
+	text-decoration:none;
+	font-weight: bold;
+	text-align: center;;
+}
+.nf-post-content{
+	margin:5px 5px;
+	padding: 10px 10px;
+	text-align: justify;
+	font-weight:50;
+	text-decoration: none;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+.nf-post-com-box{
+	padding: 5px 0px;
+	background-color: blue transparent;
+	
+	min-height: 60px;
+	margin: 5px 0px;
+	
+}
+.nf-post-com-box img{
+	float:left;
+}
+.nf-post-com-text{
+	float: left;;
+	text-align: left;;
+	padding: 10px 10px;
+	
+}
+.nf-post-header{
+	min-height:80px;
+	padding: 15px 10px ;
+	
+	border-bottom: 1px solid rgb(0,0,0);
+}
+
+.nf-main-1{
+	float:left;
+	margin:10px 0px;
+	width:100%;
+    
+}

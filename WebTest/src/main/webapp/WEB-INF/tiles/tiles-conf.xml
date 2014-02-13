@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	
+	<definition name="loginlayout" templateExpression="/WEB-INF/views/layout/basiclayout.jsp">
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="header"
+			expression="/WEB-INF/views/${deviceType}/login/header-login.jsp" />
+		<put-attribute name="body"
+			expression="/WEB-INF/views/${deviceType}/login/login.jsp" />
+		<put-attribute name="footer"
+			expression="/WEB-INF/views/${deviceType}/login/footer-login.jsp" />
+	</definition>
+
+	<definition name="login" extends="loginlayout">
+	</definition>
+
+	<definition name="pricer" extends="loginlayout">
+		<put-attribute name="body"
+			expression="/WEB-INF/views/${deviceType}/pricer/pricer.jsp" />
+	</definition>
+
+	<definition name="products" extends="loginlayout">
+		<put-attribute name="body"
+			expression="/WEB-INF/views/${deviceType}/product/product.jsp" />
+	</definition>
+
+</tiles-definitions>
